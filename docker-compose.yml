@@ -4,6 +4,6 @@ services:
   promtail:
     image: grafana/promtail:2.3.0
     volumes:
-      - /var/log:/var/log
+      - /var/lib/docker/containers:/var/lib/docker/containers
       - ${PWD}/promtail:/etc/promtail
     command: -config.file=/etc/promtail/config.yml
