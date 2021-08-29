@@ -3,10 +3,9 @@ version: '3.8'
 x-logging:
   &default-logging
   options:
-    max-size: '12m'
+    max-size: '1k'
     max-file: '5'
-    tag: '{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}'
-    labels: production_status,geo
+    tag: '{{.ImageName}}|{{.Name}}'
   driver: json-file
 
 services:
@@ -19,13 +18,7 @@ services:
     volumes:
         - .:/usr/src/app
         - /usr/src/app/node_modules
-    logging:
-      options:
-        max-size: '12m'
-        max-file: '5'
-        tag: '{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}'
-        labels: production_status,geo
-      driver: json-file
+    logging: *default-logging
   second-app:
     container_name: second-app
     build:
