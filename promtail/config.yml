@@ -8,6 +8,8 @@ positions:
 
 client:
   url: https://94736:eyJrIjoiYTYzNDg3YmZkMDdiMDM0ZGUxYjcwNmRiMzQzOTAyZjQwMjA1N2QxNCIsIm4iOiJoeXBlcmh1bWFuLWJhY2tlbmQiLCJpZCI6NTM1NzkzfQ==@logs-prod-us-central1.grafana.net/api/prom/push
+  external_labels:
+    env: dev
 
 scrape_configs:
   - job_name: containers
