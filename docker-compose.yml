@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  promtail:
+    image: grafana/promtail:2.3.0
+    volumes:
+      - /var/log:/var/log
+      - ${PWD}/promtail:/etc/promtail
+    command: -config.file=/etc/promtail/config.yml
