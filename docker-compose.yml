@@ -1,6 +1,41 @@
 version: '3.8'
 
+x-logging:
+  &default-logging
+  options:
+    max-size: '12m'
+    max-file: '5'
+    tag: '{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}'
+    labels: production_status,geo
+  driver: json-file
+
 services:
+  first-app:
+    container_name: first-app
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: yarn start
+    volumes:
+        - .:/usr/src/app
+        - /usr/src/app/node_modules
+    logging:
+      options:
+        max-size: '12m'
+        max-file: '5'
+        tag: '{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}'
+        labels: production_status,geo
+      driver: json-file
+  second-app:
+    container_name: second-app
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: yarn start
+    volumes:
+        - .:/usr/src/app
+        - /usr/src/app/node_modules
+    logging: *default-logging
   promtail:
     image: grafana/promtail:2.3.0
     volumes:
